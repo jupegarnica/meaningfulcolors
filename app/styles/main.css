@@ -7,6 +7,9 @@ body{
     color:white;
     font-size:2em;
 }
+.color {
+    font-weight:600;
+}
 .colorContainer{
     min-width:100%;
     padding : 15px;
