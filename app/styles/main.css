@@ -1,0 +1,13 @@
+/* Space out content a bit */
+body{
+  margin: 0;
+}
+.color, .word {
+    color:white;
+    font-size:2em;
+}
+.colorContainer{
+    min-width:100%;
+    padding : 15px;
+    float:left;
+}
