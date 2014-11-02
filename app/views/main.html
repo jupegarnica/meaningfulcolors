@@ -1,4 +1,6 @@
-<div class="colorContainer" ng-repeat="(word,color) in colors" style="background:{{color}}">
-<div class="word">{{word}}</div>
-<div class="color" style="color:{{color | complementaryColor}}" >{{color}}</div>
+<div class="colorContainer" ng-repeat="(word,color) in colors" style="background:{{color}}" id="#{{word}}">
+    <div class="word">
+        {{word}}
+    </div>
+    <div class="color" style="color:{{color | complementaryColor}}">{{color}}</div>
 </div>

@@ -2,10 +2,18 @@
 body{
   margin: 0;
   font-family: 'Quicksand', cursive;
+   color:white;
 }
 .color, .word {
-    color:white;
     font-size:2em;
+}
+.word {
+    font-size:3em;    
+}
+
+a , a:hover{
+    color:white;
+    font-size:1.4em;
 }
 .color {
     font-weight:600;
