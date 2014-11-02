@@ -1,6 +1,7 @@
 /* Space out content a bit */
 body{
   margin: 0;
+  font-family: 'Quicksand', cursive;
 }
 .color, .word {
     color:white;
