@@ -1,3 +1,11 @@
+<div class="page-header" ng-controller="MainCtrl">
+  <div>
+      <button ng-click="spa()"> Spanish </button>
+      <button ng-click="eng()"> English </button>
+      <button ng-click="all()"> All </button>
+    </div>
+    
+</div>
 <div class="colorContainer" ng-repeat="(word,color) in colors" style="background:{{color}}" id="#{{word}}">
     <div class="word">
         {{word}}
