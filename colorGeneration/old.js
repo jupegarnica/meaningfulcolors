@@ -14,7 +14,7 @@ fs.readFile('dictionary_6_3.json', function(err, data) {
     }
 
   }
-  fs.writeFile('colors-bada55.json', JSON.stringify(colors), function(err) {
+  fs.writeFile('colors.json', JSON.stringify(colors), function(err) {
     if (err) throw err;
     console.log('It\'s saved!');
   });

@@ -4,6 +4,9 @@ body{
   font-family: 'Quicksand', cursive;
    color:white;
 }
+.page-header{
+    color:tomato;
+}
 .color, .word {
     font-size:2em;
 }

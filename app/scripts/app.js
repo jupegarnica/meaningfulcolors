@@ -9,11 +9,11 @@ angular.module('workspaceApp', [
 ])
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
+    .when('/lang/:lang', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/lang/all'
       });
   });

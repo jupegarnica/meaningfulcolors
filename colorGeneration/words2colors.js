@@ -1,4 +1,4 @@
-words2colors('/Users/jpg/Desktop/bada55/colorGeneration/spanishdict.txt.parsed.json');
+words2colors('spanishdict.txt.parsed.json');
 
 function words2colors(file){
   var fs = require('fs');
