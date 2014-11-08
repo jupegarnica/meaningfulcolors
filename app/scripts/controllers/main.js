@@ -46,12 +46,12 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
             }
         }
         if(langLoad <= 2) {
-            $http.get('../../colorGeneration/englishDictionary.array.json').success(function(data) {
+            $http.get('../colorGeneration/englishDictionary.array.json').success(function(data) {
                 eng = data;
                 langLoad += 1;
                 setLang();
             });
-            $http.get('../../colorGeneration/spanishDictionary.array.json').success(function(data) {
+            $http.get('../colorGeneration/spanishDictionary.array.json').success(function(data) {
                 spa = data;
                 langLoad += 1;
                 setLang();
