@@ -1,4 +1,4 @@
-bada55
+meaningfulcolors
 ======
 
 Finding a hexadecimal colors from a dictionary.
