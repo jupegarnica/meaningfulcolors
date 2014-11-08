@@ -1,15 +1,37 @@
-<div class="page-header" >
-  <div>
-      <button ng-click="spa()"> Spanish </button>
-      <button ng-click="eng()"> English </button>
-      <button ng-click="all()"> All </button>
+<nav class=" navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="{{spa_active}}"><a href="" ng-click="spa()">Spanish</a>
+                </li>
+                <li class="{{eng_active}}"><a href="" ng-click="eng()">English</a>
+                </li>
+                <li class="{{all_active}}"><a href="" ng-click="all()">All</a>
+                </li>
+                <li>
+                    <a>
+                        <input id="search" ng-model="query" ng-model-options="{ debounce: 800 }" placeholder="Search...">
+                        
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
     </div>
-    <input ng-model="query" >
+</nav>
+<div class="colors">
+    <div ng-show="!colors.length" class="notfound">loading...</div>
+    <div ng-show="!filteredColors.length && colors.length" class="notfound">not found</div>
+    <div id="{{color.word}}" class="colorContainer" ng-repeat=" color in filteredColors = (colors | filter:{word:query})" style="background:{{color.color}}" id="#{{color.word}}">
+        <div class="word">
+            {{color.word}}
+            <a class="permalink" href="{{baseUrl}}lang/all/search/{{color.word}}"><span class=" glyphicon glyphicon-link"></span></a>
+        </div>
+        <div class="color" style="color:{{color.color | complementaryColor}}">{{color.color}}</div>
+    </div>
     
-</div>
-<div class="colorContainer" ng-repeat="(word,color) in colors | filter: {query:query} " style="background:{{color}}" id="#{{word}}">
-    <div class="word">
-        {{word}}
-    </div>
-    <div class="color" style="color:{{color | complementaryColor}}">{{color}}</div>
 </div>

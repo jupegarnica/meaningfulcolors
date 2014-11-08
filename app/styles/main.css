@@ -1,17 +1,32 @@
 /* Space out content a bit */
-body{
-  margin: 0;
+.colorContainer{
   font-family: 'Quicksand', cursive;
-   color:white;
+  color:white;
 }
-.page-header{
-    color:tomato;
+.colors {
+    margin-top:60px;
+}
+
+.notfound{
+    color:black;
+    font-size:3em;
 }
 .color, .word {
     font-size:2em;
 }
 .word {
     font-size:3em;    
+}
+.permalink {
+    font-size:0.7em;
+    color:rgba(255,255,255,0.5);
+    opacity: 0;
+    transition: all .5s ease-out;
+}
+.colorContainer:hover .permalink {
+    opacity: 1.0;
+    font-size:0.7em;
+    transition: all .5s ease-out;
 }
 
 a , a:hover{

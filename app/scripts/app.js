@@ -13,6 +13,10 @@ angular.module('workspaceApp', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+    .when('/lang/:lang/search/:query', {
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl'
+      })
       .otherwise({
         redirectTo: '/lang/all'
       });
