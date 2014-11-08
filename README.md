@@ -3,6 +3,6 @@ bada55
 
 Finding a hexadecimal colors from a dictionary.
 
-[App](http://jupegarnica.github.io/bada55/app/)
+[App](http://jupegarnica.github.io/meaningfulcolors/app/)
 
 [Author](http://jupegarnica.com)
