@@ -5,7 +5,8 @@ angular.module('workspaceApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'infinite-scroll'
 ])
   .config(function ($routeProvider) {
     $routeProvider

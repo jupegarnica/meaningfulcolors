@@ -1,62 +1,113 @@
 'use strict';
 angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$scope', '$http', '$routeParams',
     function($route, $location, $scope, $http, $routeParams) {
-        var _active;
-        var langLoad = 0;
-        var spa = [],
-            eng = [],
-            words_eng = [],
-            words_spa = [];
+        var dictionary = [],
+            currentDictionary = [],
+            indexLoaded = -1,
+            maxtoLoad = 10;
+        if($routeParams.query) $scope.query = decodeURI($routeParams.query);
+        $scope.colors = [];
+        $scope.lang = $routeParams.lang;
 
-        function emptyObj(obj) {
-            console.log(obj);
-            obj.length = 0;
-        }
-
-        function reset() {
-            words_eng = JSON.parse(JSON.stringify(eng));
-            words_spa = JSON.parse(JSON.stringify(spa));
-        }
-
-        function replaceObj(from, to, hardcopy) {
-            for(var i = 0; i < from.length; i++) {
-                to[i] = from[i];
+        function loadWords(max) {
+            max = max == 'all' ? Infinity : maxtoLoad; // if explicited or default
+            var from = 0
+            $scope.colors.length = 0; // empty receptor
+            for(var i = from; i < currentDictionary.length && i <= max; i++) {
+                $scope.colors.push(currentDictionary[i]);
             }
-            reset();
+            indexLoaded = i;
         }
 
-        function mergeObj(obj1, obj2) {
-            return obj2.concat(obj1);
-        }
-
-        function setLang() {
-            if(langLoad >= 2) {
-                reset();
-                switch($routeParams.lang) {
-                    case "english":
-                        showEng();
-                        break;
-                    case "spanish":
-                        showSpa();
-                        break;
-                    case "all":
-                        showAll();
-                        break;
+        function filterDictionary() {
+            var filter = $scope.lang;
+            currentDictionary = [];
+            for(var i = 0; i < dictionary.length; i++) {
+                if(filter === 'all' || dictionary[i].lang === filter) {
+                    currentDictionary.push(dictionary[i]);
                 }
             }
         }
-        if(langLoad <= 2) {
-            $http.get('../colorGeneration/englishDictionary.array.json').success(function(data) {
-                eng = data;
-                langLoad += 1;
-                setLang();
+
+        function changeUrl(lang, query) {
+            lang = lang || $routeParams.lang;
+            
+            var hash = window.location.hash.replace('#', '');
+            var newhash = '/lang/' + lang;
+            if(query) {
+                newhash += '/search/' + query;
+            }
+            var off = $scope.$on('$routeUpdate', function(e) {
+                e.preventDefault();
+                off();
             });
-            $http.get('../colorGeneration/spanishDictionary.array.json').success(function(data) {
-                spa = data;
-                langLoad += 1;
-                setLang();
-            });
+            $location.path(newhash, false);
+            $scope.query = query;
+            $scope.lang = lang;
+            $routeParams.lang = lang;
+            $routeParams.query = query;
+            $scope.eng_active = lang == 'english' ? 'active' : '';
+            $scope.spa_active = lang == 'spanish' ? 'active' : '';
+            $scope.all_active = lang == 'all' ? 'active' : '';
+            $scope.baseUrl = $location.absUrl().replace(/lang.{0,}/, '');
         }
+        $scope.$watch('query', function(query, oldquery) {
+            if($scope.colors.length < dictionary.length && typeof query == 'string') {
+                currentDictionary = JSON.parse(JSON.stringify(dictionary));
+                loadWords('all');
+                changeUrl('all', query);
+            } else if(typeof query == 'string'){
+                changeUrl(undefined, query);
+            }
+            
+            $('#search').focus();
+        });
+        $scope.loadMore = function() {
+            var all, from, max;
+            if($scope.colors.length == 0) return;
+            all = JSON.parse(JSON.stringify(currentDictionary));
+            from = indexLoaded + 1;
+            max = from + maxtoLoad;
+            for(var i = from; i < all.length && i <= max; i++) {
+                if(all[i]) {
+                    $scope.colors.push(all[i]);
+                } else {
+                    return;
+                }
+            }
+            indexLoaded = i;
+        };
+
+        function init() {
+            var query = $routeParams.query;
+            if(query) {
+                currentDictionary = JSON.parse(JSON.stringify(dictionary));
+                loadWords('all');
+                changeUrl('all', query);
+            } else {
+                filterDictionary();
+                loadWords();
+            }
+        }
+        $scope.eng = function() {
+            changeUrl('english', undefined);
+            filterDictionary();
+            loadWords();
+        };
+        $scope.spa = function() {
+            changeUrl('spanish', undefined);
+            filterDictionary();
+            loadWords();
+        };
+        $scope.all = function() {
+            changeUrl('all', undefined);
+            filterDictionary();
+            loadWords();
+        };
+        $http.get('../colorGeneration/all.array.json').success(function(data) {
+            dictionary = data;
+            init();
+        });
         var original = $location.path;
         $location.path = function(path, reload) {
             if(reload === false) {
@@ -68,61 +119,6 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
             }
             return original.apply($location, [path]);
         };
-
-        function changeUrl(lang, query) {
-            lang = lang || $routeParams.lang;
-            query = typeof query == 'string' ? query : $routeParams.query;
-            var hash = window.location.hash.replace('#', '');
-            var newhash = '/lang/' + lang;
-            if(query) {
-                newhash += '/search/' + query;
-            }
-            var off = $scope.$on('$routeUpdate', function(e) {
-                e.preventDefault();
-                off();
-            });
-            $location.path(newhash, false);
-            $scope.eng_active = lang == 'english' ? 'active' : '';
-            $scope.spa_active = lang == 'spanish' ? 'active' : '';
-            $scope.all_active = lang == 'all' ? 'active' : '';
-            $scope.baseUrl =  $location.absUrl().replace(/lang.{0,}/,'');
-        }
-//         $scope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
-//             if($routeParams.anchor) {
-//                 $location.hash($routeParams.anchor);
-//                 $anchorScroll();
-//             }
-//         });
-        $scope.$watch('query', function(query) {
-            changeUrl(undefined, query);
-            $('#search').focus();
-        });
-        var showEng = function() {
-            if(_active != "words_eng") {
-                replaceObj(words_eng, $scope.colors, eng);
-                _active = "words_eng";
-                changeUrl('english');
-            }
-        };
-        var showSpa = function() {
-            if(_active != "words_spa") {
-                replaceObj(words_spa, $scope.colors, spa);
-                _active = "words_spa";
-                changeUrl('spanish')
-            }
-        };
-        var showAll = function() {
-            if(_active != "words_all") {
-                replaceObj(mergeObj(words_eng, words_spa), $scope.colors);
-                _active = "words_all";
-                changeUrl('all')
-            }
-        };
-        $scope.eng = showEng;
-        $scope.spa = showSpa;
-        $scope.all = showAll;
-        if($routeParams.query) $scope.query = decodeURI($routeParams.query);
-        $scope.colors = [];
     }
 ]).filter('complementaryColor', function() {
     return function(c) {

@@ -23,10 +23,10 @@
         <!--/.nav-collapse -->
     </div>
 </nav>
-<div class="colors">
+<div class="colors" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
     <div ng-show="!colors.length" class="notfound">loading...</div>
     <div ng-show="!filteredColors.length && colors.length" class="notfound">not found</div>
-    <div id="{{color.word}}" class="colorContainer" ng-repeat=" color in filteredColors = (colors | filter:{word:query})" style="background:{{color.color}}" id="#{{color.word}}">
+    <div id="{{color.word}}" class="colorContainer" ng-repeat=" color in filteredColors = (colors | filter:{word:query})" style="background:{{color.color}}" id="#{{color.word}}" data-lang="{{color.lang}}">
         <div class="word">
             {{color.word}}
             <a class="permalink" href="{{baseUrl}}lang/all/search/{{color.word}}"><span class=" glyphicon glyphicon-link"></span></a>

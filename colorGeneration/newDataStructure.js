@@ -16,13 +16,32 @@ function old2new(file) {
             newer.push({
                 "word": words[i],
                 "color": old[words[i]],
-                "lang":"english"
+                "lang": "english"
             });
         }
-        fs.writeFile(file.replace('obj','array'), JSON.stringify(newer), function(err) {
+        fs.writeFile(file.replace('obj', 'array'), JSON.stringify(newer), function(err) {
             if(err) throw err;
             console.log('It\'s saved!');
         });
     });
 }
-old2new('englishDictionary.obj.json');
+
+function merge(f1, f2) {
+    
+    var fs = require('fs');
+    fs.readFile(f1, function(err, data) {
+        if(err) throw err;
+        f1 = JSON.parse(data);
+        fs.readFile(f2, function(err, data) {
+            if(err) throw err;
+            f2 = JSON.parse(data);
+            var f3 = f1.concat(f2);
+            fs.writeFile('all.array.json', JSON.stringify(f3), function(err) {
+                if(err) throw err;
+                console.log('It\'s saved!');
+            });
+        });
+    });
+}
+
+merge('englishDictionary.array.json','spanishDictionary.array.json');
