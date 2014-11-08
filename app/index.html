@@ -9,12 +9,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
+
     <title></title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!--     <script src="scripts/colors.min.js"></script> -->
-
+    <link rel="icon" type="image/png" href="//urbansherpas.es/wp-content/uploads/2014/03/shorpesa-favicon-24.png">
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/bootstrap.css">
     <link rel="stylesheet" href="styles/bootstrap-theme.css">
@@ -35,7 +35,30 @@
 
     <!-- Add your site or application content here -->
     <div class="" ng-view=""></div>
+    <footer class="navbar2 navbar-fixed-bottom" role="navigation">
+        <div class="container-fluid">
 
+            <div>
+                <ul class="nav">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <span class="language">
+                                <a target="_blank" href="//urbansherpas.es">
+                                    Made with <span class="glyphicon glyphicon-heart"></span> by urbansherpas
+                                </a>
+                                <a href="//jupegarnica.com"> & jupegarnica</a>
+                            </span>
+
+
+                        </div>
+                        <div class="col-xs-4 col-xs-pull-1 ">
+                        </div>
+                    </div>
+
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </footer>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
         (function(i, s, o, g, r, a, m) {
@@ -72,6 +95,8 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
+
+
     <!-- endbuild -->
 </body>
 

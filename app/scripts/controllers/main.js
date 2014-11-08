@@ -4,10 +4,17 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
         var dictionary = [],
             currentDictionary = [],
             indexLoaded = -1,
-            maxtoLoad = 10;
+            maxtoLoad = 5;
         if($routeParams.query) $scope.query = decodeURI($routeParams.query);
         $scope.colors = [];
         $scope.lang = $routeParams.lang;
+        $scope.eng_active = $scope.lang == 'english' ? 'active' : '';
+        $scope.spa_active = $scope.lang == 'spanish' ? 'active' : '';
+        $scope.all_active = $scope.lang == 'all' ? 'active' : '';
+        $(function() {
+            var navbarHeight = $('.navbar2').outerHeight(); //mas el margin del footer
+            $('.colors').css('margin-bottom', navbarHeight);
+        });
 
         function loadWords(max) {
             max = max == 'all' ? Infinity : maxtoLoad; // if explicited or default
@@ -17,6 +24,14 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
                 $scope.colors.push(currentDictionary[i]);
             }
             indexLoaded = i;
+        }
+
+        function loadRandom() {
+            currentDictionary = JSON.parse(JSON.stringify(dictionary));
+            currentDictionary.sort(function() {
+                return(Math.round(Math.random()) - 0.5);
+            });
+            loadWords();
         }
 
         function filterDictionary() {
@@ -31,7 +46,6 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
 
         function changeUrl(lang, query) {
             lang = lang || $routeParams.lang;
-            
             var hash = window.location.hash.replace('#', '');
             var newhash = '/lang/' + lang;
             if(query) {
@@ -56,10 +70,9 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
                 currentDictionary = JSON.parse(JSON.stringify(dictionary));
                 loadWords('all');
                 changeUrl('all', query);
-            } else if(typeof query == 'string'){
+            } else if(typeof query == 'string') {
                 changeUrl(undefined, query);
             }
-            
             $('#search').focus();
         });
         $scope.loadMore = function() {
@@ -103,6 +116,10 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
             changeUrl('all', undefined);
             filterDictionary();
             loadWords();
+        };
+        $scope.rnd = function() {
+            loadRandom();
+            changeUrl('all', undefined);
         };
         $http.get('../colorGeneration/all.array.json').success(function(data) {
             dictionary = data;
