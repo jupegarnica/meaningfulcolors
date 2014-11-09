@@ -68,6 +68,7 @@ input {
     border:0;
     text-transform:uppercase;
     color:white;
+    min-width:20em;
 }
 input:focus {
     outline-offset: 0;
