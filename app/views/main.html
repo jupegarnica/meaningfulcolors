@@ -34,10 +34,10 @@
             <h1 class="load"><span>N</span><span>0</span><span> </span><span>C</span><span>O</span><span>L</span><span>O</span><span>R</span><span>S</span></h1>
         </div>
     </div>
-    <div id="{{color.word}}" class="colorContainer" ng-repeat=" color in filteredColors = (colors | filter:{word:query})" style="background:{{color.color}}" id="#{{color.word}}" data-lang="{{color.lang}}">
+    <div id="{{color.word}}" class="colorContainer" ng-repeat=" color in filteredColors = (colors | filter:{$:query}:containsComparator)" style="background:{{color.color}}" id="#{{color.word}}" data-lang="{{color.lang}}">
         <div class="word">
             {{color.word}}
-            <a class="permalink" href="{{baseUrl}}lang/all/search/{{color.word}}"><span class=" glyphicon glyphicon-link"></span></a>
+            <a class="permalink" href="{{baseUrl}}lang/all/search/@{{color.word}}"><span class=" glyphicon glyphicon-link"></span></a>
         </div>
         <div class="color" style="color:{{color.color | complementaryColor}}">{{color.color}}</div>
     </div>

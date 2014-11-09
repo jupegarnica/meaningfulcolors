@@ -125,6 +125,38 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
             dictionary = data;
             init();
         });
+//         var lastQuery = "";
+//         var lastQueries = [];
+
+//         function parseQuery(busqueda) {
+//             var queries, query;
+//             if(busqueda !== lastQuery) {
+//                 console.log('parseQuery');
+//                 queries = busqueda.toLowerCase().split(' ');
+//                 for(var i = 0; i < queries.length; i++) {
+//                     if(queries[i].match('@')) {
+//                         queries[i] = '^' + queries[i].replace('@', '') + '$';
+//                     }
+//                 }
+//                 lastQuery = busqueda;
+//                 lastQueries = queries;
+//                 return queries;
+//             } else {
+//                 return lastQueries;
+//             }
+//         }
+        $scope.containsComparator = function(actual, expected) {
+            var queries = expected.toLowerCase().split(' ');
+            for(var i = 0; i < queries.length; i++) {
+                if(queries[i].match('@')) {
+                    queries[i] = '^' + queries[i].replace('@', '') + '$';
+                }
+                if(actual.toLowerCase().match(queries[i])) {
+                    return true;
+                }
+            }
+            return false;
+        };
         var original = $location.path;
         $location.path = function(path, reload) {
             if(reload === false) {
