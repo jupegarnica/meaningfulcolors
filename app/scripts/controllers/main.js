@@ -4,7 +4,7 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
         var dictionary = [],
             currentDictionary = [],
             indexLoaded = -1,
-            maxtoLoad = 5;
+            maxtoLoad = 10;
         if($routeParams.query) $scope.query = decodeURI($routeParams.query);
         $scope.colors = [];
         $scope.lang = $routeParams.lang;
@@ -43,6 +43,28 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
                 }
             }
         }
+        //handle history back
+        $scope.$on('$locationChangeSuccess', function() {
+            $scope.actualLocation = $location.path();
+        });
+        $scope.$watch(function() {
+            return $location.path()
+        }, function(newLocation, oldLocation) {
+            if($scope.actualLocation === newLocation) {
+                var hash = $scope.actualLocation.split('/');
+                console.clear();
+                console.log(hash);
+                $scope.query = $routeParams.query = undefined;
+                hash.forEach(function(el, index) {
+                    if(el === 'lang') {
+                        $scope.lang = $routeParams.lang = hash[index + 1];
+                    } else if(el === 'search') {
+                        $scope.query = $routeParams.query = hash[index + 1];
+                    }
+                });
+             
+            }
+        });
 
         function changeUrl(lang, query) {
             lang = lang || $routeParams.lang;
@@ -51,19 +73,16 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
             if(query) {
                 newhash += '/search/' + query;
             }
-            var off = $scope.$on('$routeUpdate', function(e) {
+            var off = $scope.$on('$routeChangeStart', function(e) {
                 e.preventDefault();
                 off();
             });
             $location.path(newhash, false);
-            $scope.query = query;
-            $scope.lang = lang;
-            $routeParams.lang = lang;
-            $routeParams.query = query;
-            $scope.eng_active = lang == 'english' ? 'active' : '';
-            $scope.spa_active = lang == 'spanish' ? 'active' : '';
-            $scope.all_active = lang == 'all' ? 'active' : '';
-            $scope.baseUrl = $location.absUrl().replace(/lang.{0,}/, '');
+            $scope.query = $routeParams.query = query;
+            $scope.lang = $routeParams.lang = lang;
+            $scope.eng_active = $scope.lang == 'english' ? 'active' : '';
+            $scope.spa_active = $scope.lang == 'spanish' ? 'active' : '';
+            $scope.all_active = $scope.lang == 'all' ? 'active' : '';
         }
         $scope.$watch('query', function(query, oldquery) {
             if($scope.colors.length < dictionary.length && typeof query == 'string') {
@@ -93,6 +112,7 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
 
         function init() {
             var query = $routeParams.query;
+            $scope.baseUrl = $location.absUrl().replace(/lang.{0,}/, '');
             if(query) {
                 currentDictionary = JSON.parse(JSON.stringify(dictionary));
                 loadWords('all');
@@ -125,26 +145,6 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
             dictionary = data;
             init();
         });
-//         var lastQuery = "";
-//         var lastQueries = [];
-
-//         function parseQuery(busqueda) {
-//             var queries, query;
-//             if(busqueda !== lastQuery) {
-//                 console.log('parseQuery');
-//                 queries = busqueda.toLowerCase().split(' ');
-//                 for(var i = 0; i < queries.length; i++) {
-//                     if(queries[i].match('@')) {
-//                         queries[i] = '^' + queries[i].replace('@', '') + '$';
-//                     }
-//                 }
-//                 lastQuery = busqueda;
-//                 lastQueries = queries;
-//                 return queries;
-//             } else {
-//                 return lastQueries;
-//             }
-//         }
         $scope.containsComparator = function(actual, expected) {
             var queries = expected.toLowerCase().split(' ');
             for(var i = 0; i < queries.length; i++) {
