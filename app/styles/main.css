@@ -138,6 +138,38 @@ text-shadow:      0 0 1px rgba(255, 255, 255, 0.2);
      -o-animation:loading 1.20s ease-in-out infinite alternate;
         animation:loading 1.20s ease-in-out infinite alternate;
 }
+
+.load span:nth-child(1) {
+    text-shadow:      0 0 1px rgba(196, 68, 78, 0.4);
+} 
+.load span:nth-child(2) {
+    text-shadow:      0 0 1px rgba(196, 229, 66, 0.4);
+}
+.load span:nth-child(3) {
+    text-shadow:      0 0 1px rgba(255, 255, 135, 0.4);
+}
+.load span:nth-child(4) {
+    text-shadow:      0 0 1px rgba(89, 255, 255, 0.4);
+}
+.load span:nth-child(5) {
+    text-shadow:      0 0 1px rgba(150, 34, 255, 0.4);
+}
+.load span:nth-child(6) {
+    text-shadow:      0 0 1px rgba(204, 68, 102, 0.4);
+}
+.load span:nth-child(7) {
+    text-shadow:      0 0 1px rgba(102, 238, 17, 0.4);
+}
+.load span:nth-child(8) {
+    text-shadow:      0 0 1px rgba(5, 5, 150, 0.4);
+}
+.load span:nth-child(9) {
+    text-shadow:      0 0 1px rgba(209, 136, 30, 0.4);
+}
+
+
+
+
 @-webkit-keyframes loading{
 to {text-shadow:
     0 0 2px rgba(204, 208, 212,0.2),
