@@ -51,9 +51,7 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
             return $location.path()
         }, function(newLocation, oldLocation) {
             if($scope.actualLocation === newLocation) {
-                var hash = $scope.actualLocation.split('/');
-                console.clear();
-                console.log(hash);
+                var hash = newLocation.split('/');
                 $scope.query = $routeParams.query = undefined;
                 hash.forEach(function(el, index) {
                     if(el === 'lang') {
