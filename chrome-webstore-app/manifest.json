@@ -4,9 +4,9 @@
     "description": "Inspiring colors with extra meaning",
     "version": "2.0.0",
     "app": {
-        "urls": ["http://meaningfulcolors.es/"],
+        "urls": ["http://meaningfulcolors.com/"],
         "launch": {
-            "web_url": "http://meaningfulcolors.es/app"
+            "web_url": "http://meaningfulcolors.com/app"
         }
     },
     "icons": {

@@ -52,6 +52,12 @@ a, a:hover {
 /** navbar
  * 
  **/
+.nav {
+    margin-top: 10px;
+}
+/* .logo {
+    max-height: 33px;
+} */
  .navbar2 {
     padding:10px;
     text-transform:uppercase;
@@ -77,6 +83,9 @@ input:focus {
 .language {
     padding:0 10px;
     cursor: pointer;
+}
+.random {
+    color:#ddd;
 }
 .language:hover {
     text-decoration:underline;
