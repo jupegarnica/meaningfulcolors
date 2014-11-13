@@ -1,0 +1,16 @@
+{
+    "manifest_version": 2,
+    "name": "MeaningfulColors",
+    "description": "Inspiring colors with extra meaning",
+    "version": "2.0.0",
+    "app": {
+        "urls": ["http://meaningfulcolors.es/"],
+        "launch": {
+            "web_url": "http://meaningfulcolors.es/app"
+        }
+    },
+    "icons": {
+        "128": "icon_128.png"
+    }
+
+}
