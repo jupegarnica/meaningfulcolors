@@ -1,6 +1,6 @@
 'use strict';
-angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$scope', '$http', '$routeParams',
-    function($route, $location, $scope, $http, $routeParams) {
+angular.module('workspaceApp').controller('MainCtrl', ['$firebase','$route', '$location', '$scope', '$http', '$routeParams',
+    function($firebase,$route, $location, $scope, $http, $routeParams) {
         var dictionary = [],
             currentDictionary = [],
             indexLoaded = -1,
@@ -139,10 +139,19 @@ angular.module('workspaceApp').controller('MainCtrl', ['$route', '$location', '$
             loadRandom();
             changeUrl('all', undefined);
         };
-        $http.get('../colorGeneration/all.array.json').success(function(data) {
-            dictionary = data;
-            init();
-        });
+//         $http.get('../colorGeneration/all.array.json').success(function(data) {
+//             dictionary = data;
+//             init();
+//         });
+        /**
+         *  FIREBASE
+         *
+         * */
+        var ref = new Firebase("https://fiery-heat-8886.firebaseio.com/");
+        var sync = $firebase(ref);
+        dictionary = sync.colors;
+        init();
+        
         $scope.containsComparator = function(actual, expected) {
             var queries = expected.toLowerCase().split(' ');
             for(var i = 0; i < queries.length; i++) {

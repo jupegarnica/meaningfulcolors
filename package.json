@@ -1,7 +1,9 @@
 {
   "name": "workspace",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "firebase": "~2.0.5"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-copy": "~0.4.1",
