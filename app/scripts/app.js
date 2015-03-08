@@ -6,8 +6,7 @@ angular.module('workspaceApp', [
   'ngSanitize',
   'ngRoute',
   'ui.bootstrap',
-  'infinite-scroll',
-  'firebase'
+  'infinite-scroll'
 ])
   .config(function ($routeProvider) {
     $routeProvider
