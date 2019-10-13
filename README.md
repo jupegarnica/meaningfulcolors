@@ -5,6 +5,6 @@ Words transformed into colors.
 
 Finding a hexadecimal colors from a dictionary.
 
-[App](http://MEANINGFULCOLORS.COM)
+[App](http://jupegarnica.github.io/meaningfulcolors/app/#/lang/all)
 
 [Author](http://jupegarnica.com)
